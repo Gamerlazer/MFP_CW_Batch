@@ -6,6 +6,7 @@ print datetime.date.today()
 
 # save files as Window Comma Separated (.csv)
 
+<<<<<<< HEAD
 sfdc_report_name = raw_input("What is the name of the SFDC report? (Don't include '.csv)")
 recon_report_name = raw_input("What is the name of the recon report from last month? (Don't include '.csv)")
 cc_trans_name = raw_input("What is the name of the cc transaction report you just pulled? (Don't include '.csv)")
@@ -14,13 +15,23 @@ cc_trans_name = raw_input("What is the name of the cc transaction report you jus
 
 cl_oppts = {}
 with open(sfdc_report_name+'.csv', 'rU') as f1:
+=======
+### ----
+
+cl_oppts = {}
+with open('sfdc_report.csv', 'rU') as f1:
+>>>>>>> 2112c54c96681737f0839266a2e10477c6476d7d
 	report = csv.DictReader(f1)
 	for row in report:
 		cl_oppts[row['Opportunity ID']] = row
 	# print cl_oppts['0063300000hty43'] # Testing
 
 recon_report = {} 
+<<<<<<< HEAD
 with open(recon_report_name+'.csv', 'rU') as f2:
+=======
+with open('Feb_2016_Recon_File.csv', 'rU') as f2:
+>>>>>>> 2112c54c96681737f0839266a2e10477c6476d7d
 	report = f2.readlines()
 	for row in range(2,len(report)):
 		recon_report[report[row].split(",")[0]] = report[row].split(",")[1].strip()
@@ -33,7 +44,11 @@ for key in cl_oppts:
 		cl_oppts[key]['Payment Account ID'] = recon_report[yelp_biz_id]
 
 cc_trans = [] # List of all payment ID's that cleared
+<<<<<<< HEAD
 with open(cc_trans_name+'.csv', 'rU') as f3:
+=======
+with open('credit_card_transaction_3_11_2016_to_3_18_2016_11_00_pm.csv', 'rU') as f3:
+>>>>>>> 2112c54c96681737f0839266a2e10477c6476d7d
 	report = csv.DictReader(f3)
 	for row in report:
 		adv_id = row['advertiser_id']
@@ -50,12 +65,23 @@ for key in cl_oppts:
 			cw_oppts[key] = cl_oppts[key]
 print cw_oppts
 
+<<<<<<< HEAD
 
+=======
+with open('test_collected_oppts.csv', 'w') as csvfile:
+    fieldnames = ['Opportunity Record Type', 'Close Date', 'Yelp Business ID', 'Payment Account ID', 'Payment cycle', 'Commitment Period', 'Split Oppty: Total Comp Pts/New Revenue', 'Comp Points Currency', 'Is Split', 'Business Name', 'Reason Closed Lost - Local', 'Yelp Admin Page', 'Opportunity ID', 'Comp Points', 'Split Oppty: Total Comp Pts/New Revenue Currency', 'Ops Error Notes', 'Stage'] # header row
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+    writer.writeheader()
+    for key in cw_oppts:
+    	writer.writerow(cw_oppts[key])
+>>>>>>> 2112c54c96681737f0839266a2e10477c6476d7d
 
 ### Below works
 ## Create a file for the batches
 
 os.chdir("/Users/jtruong/Desktop/M1M Closed Lost Batches/Uploads") # Move uploads to uploads folder
+<<<<<<< HEAD
 cw_oppts_report = 'MFP_Closed Won Oppts_'+str(datetime.date.today())+'.csv'
 mfp_batch1 = 'MFP_Closed Won Batch 1_'+str(datetime.date.today())+'.csv'
 mfp_batch2 = 'MFP_Closed Won Batch 2_'+str(datetime.date.today())+'.csv'
@@ -68,6 +94,11 @@ with open(cw_oppts_report, 'w') as csvfile:
     for key in cw_oppts:
     	writer.writerow(cw_oppts[key])
 
+=======
+mfp_batch1 = 'MFP_Closed Won Batch 1_'+str(datetime.date.today())+'.csv'
+mfp_batch2 = 'MFP_Closed Won Batch 2_'+str(datetime.date.today())+'.csv'
+
+>>>>>>> 2112c54c96681737f0839266a2e10477c6476d7d
 with open(mfp_batch1, 'w') as csvfile:
     fieldnames = ['Opportunity ID','Stage'] # header row
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames,extrasaction='ignore')
